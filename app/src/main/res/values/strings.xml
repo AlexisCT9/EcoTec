@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">EcoTec</string>
+    <string name="user_role">Usuario General</string>
+    <string name="menu_icon">Menú</string>
+    <string name="settings_icon">Configuración</string>
+    <string name="home">Inicio</string>
+    <string name="map">Mapa</string>
+    <string name="recommend">Recomendar</string>
+    <string name="guide">Guía</string>
+    <string name="report">Reportar</string>
+    <string name="switch_admin">Cambiar a Admin</string>
+    <string name="logo_ecotec">Logo EcoTec</string>
+
+</resources>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="ecoBlue">#E0F2FE</color>
+    <color name="ecoGreen">#DCFCE7</color>
+    <color name="ecoPurple">#F3E8FF</color>
+    <color name="ecoRed">#FEE2E2</color>
+    <color name="ecoTextDark">#111827</color>
+    <color name="ecoTextLight">#6B7280</color>
+    <color name="green_glass">#059669</color>
+    <color name="gray_metal">#6b7280</color>
+    <color name="yellow_plastic">#eab308</color>
+    <color name="red_organic">#dc2626</color>
+
+
+
+</resources>
