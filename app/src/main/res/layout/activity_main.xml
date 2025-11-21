@@ -9,7 +9,7 @@
     android:padding="16dp"
     tools:context=".MainActivity">
 
-    <!-- Encabezado superior -->
+    <!-- 🌱 Encabezado superior EcoTec -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,7 +17,8 @@
         android:gravity="center_vertical"
         android:paddingHorizontal="8dp"
         android:paddingVertical="4dp"
-        android:layout_marginBottom="8dp">
+        android:layout_marginBottom="8dp"
+        android:background="#F9FAFB">
 
         <ImageView
             android:id="@+id/imgEcoLogo"
@@ -27,11 +28,11 @@
             android:contentDescription="@string/logo_ecotec"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
-            app:tint="@null"
-            android:src="@drawable/eco_logo" />
+            android:src="@drawable/eco_logo"
+            app:tint="@null" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_weight="1">
@@ -52,7 +53,9 @@
                 android:textSize="12sp" />
         </LinearLayout>
 
+        <!-- Icono de menú ☰ -->
         <ImageView
+            android:id="@+id/menuIcon"
             android:layout_width="28dp"
             android:layout_height="28dp"
             android:layout_gravity="end"
@@ -93,18 +96,17 @@
             android:textSize="14sp" />
     </LinearLayout>
 
-    <!-- Grid de tarjetas -->
+    <!-- 📦 Grid de tarjetas -->
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:alignmentMode="alignMargins"
         android:columnCount="2"
-        android:orientation="horizontal"
         android:rowCount="2"
         android:useDefaultMargins="true">
 
-        <!-- Tarjeta 1: Ver Mapa -->
+        <!-- 🌍 Ver Mapa -->
         <androidx.cardview.widget.CardView
             android:id="@+id/cardMap"
             android:layout_width="0dp"
@@ -134,7 +136,6 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="2dp"
                     android:text="Ver Mapa"
                     android:textColor="@color/ecoTextDark"
                     android:textSize="16sp"
@@ -149,7 +150,7 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- Tarjeta 2: Recomendar -->
+        <!-- 🧭 Recomendar -->
         <androidx.cardview.widget.CardView
             android:id="@+id/cardRecommend"
             android:layout_width="0dp"
@@ -179,7 +180,6 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="2dp"
                     android:text="Recomendar"
                     android:textColor="@color/ecoTextDark"
                     android:textSize="16sp"
@@ -194,7 +194,7 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- Tarjeta 3: Guía -->
+        <!-- 📘 Guía -->
         <androidx.cardview.widget.CardView
             android:id="@+id/cardGuide"
             android:layout_width="0dp"
@@ -224,7 +224,6 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="2dp"
                     android:text="Guía"
                     android:textColor="@color/ecoTextDark"
                     android:textSize="16sp"
@@ -239,7 +238,7 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- Tarjeta 4: Reportar -->
+        <!-- 🚨 Reportar -->
         <androidx.cardview.widget.CardView
             android:id="@+id/cardReport"
             android:layout_width="0dp"
@@ -269,7 +268,6 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="2dp"
                     android:text="Reportar"
                     android:textColor="@color/ecoTextDark"
                     android:textSize="16sp"

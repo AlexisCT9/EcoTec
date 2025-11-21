@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#10B981"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:layout_marginTop="20dp"
+    android:layout_marginBottom="20dp"
+    android:elevation="6dp">
+
+    <!-- ♻️ Título -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="♻️ Consejos para un Mejor Reciclaje"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:layout_marginBottom="12dp" />
+
+    <!-- 💡 Limpia los envases -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="💡 Limpia los envases"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        android:textSize="16sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enjuaga botellas y contenedores antes de desecharlos"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"
+        android:layout_marginBottom="10dp" />
+
+    <!-- 📦 Aplana el cartón -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="📦 Aplana el cartón"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        android:textSize="16sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reduce el volumen de cajas para optimizar espacio"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"
+        android:layout_marginBottom="10dp" />
+
+    <!-- 🔍 Verifica el símbolo -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="🔍 Verifica el símbolo"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        android:textSize="16sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Busca el número de reciclaje en plásticos"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"
+        android:layout_marginBottom="10dp" />
+
+    <!-- 🤝 Educa a otros -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="🤝 Educa a otros"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        android:textSize="16sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Comparte estos consejos con tu comunidad"
+        android:textColor="@android:color/white"
+        android:textSize="14sp" />
+</LinearLayout>

@@ -30,16 +30,20 @@ class GuideActivity : AppCompatActivity() {
 
             popupMenu.setOnMenuItemClickListener { item ->
                 when (item.itemId) {
-                    R.id.action_reports -> {
-                        Toast.makeText(this, "Abriendo reportes 📋", Toast.LENGTH_SHORT).show()
-                        true
-                    }
                     R.id.action_map -> {
-                        Toast.makeText(this, "Abriendo mapa 🗺", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "Abriendo mapa 🗺️", Toast.LENGTH_SHORT).show()
                         true
                     }
-                    R.id.action_settings -> {
-                        Toast.makeText(this, "Abriendo configuración ⚙️", Toast.LENGTH_SHORT).show()
+                    R.id.action_recommend -> {
+                        Toast.makeText(this, "Abriendo recomendación 💡", Toast.LENGTH_SHORT).show()
+                        true
+                    }
+                    R.id.action_guide -> {
+                        Toast.makeText(this, "Ya estás en la guía 📘", Toast.LENGTH_SHORT).show()
+                        true
+                    }
+                    R.id.action_report -> {
+                        Toast.makeText(this, "Abriendo reporte ⚠️", Toast.LENGTH_SHORT).show()
                         true
                     }
                     R.id.action_login -> {

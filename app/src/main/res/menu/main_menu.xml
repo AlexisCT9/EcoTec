@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@+id/action_reports"
-        android:title="📋 Ver reportes" />
+
     <item
         android:id="@+id/action_map"
-        android:title="🗺 Ver mapa" />
+        android:title="🗺️ Ver mapa" />
+
     <item
-        android:id="@+id/action_settings"
-        android:title="⚙️ Configuración" />
+        android:id="@+id/action_recommend"
+        android:title="💡 Recomendar" />
+
+    <item
+        android:id="@+id/action_guide"
+        android:title="📘 Guía" />
+
+    <item
+        android:id="@+id/action_report"
+        android:title="⚠️ Reportar" />
+
     <item
         android:id="@+id/action_login"
         android:title="🚪 Iniciar sesión" />
+
 </menu>
