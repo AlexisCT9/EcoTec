@@ -12,6 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EcoTec">
         <activity
+            android:name=".item_contenedor"
+            android:exported="false" />
+        <activity
+            android:name=".menu_top_bar"
+            android:exported="false" />
+        <activity
+            android:name=".bottomsheet_building"
+            android:exported="false" />
+        <activity
             android:name=".section_electronic_waste"
             android:exported="false" />
         <activity

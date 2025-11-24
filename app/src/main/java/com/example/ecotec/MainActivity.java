@@ -7,6 +7,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.cardview.widget.CardView;
+import com.example.ecotec.MapActivity;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -1,5 +1,6 @@
 package com.example.ecotec
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.LinearLayout
@@ -32,10 +33,12 @@ class GuideActivity : AppCompatActivity() {
                 when (item.itemId) {
                     R.id.action_map -> {
                         Toast.makeText(this, "Abriendo mapa 🗺️", Toast.LENGTH_SHORT).show()
+                        startActivity(Intent(this, MapActivity::class.java))
                         true
                     }
                     R.id.action_recommend -> {
                         Toast.makeText(this, "Abriendo recomendación 💡", Toast.LENGTH_SHORT).show()
+                        startActivity(Intent(this, RecommendActivity::class.java))
                         true
                     }
                     R.id.action_guide -> {
@@ -44,16 +47,17 @@ class GuideActivity : AppCompatActivity() {
                     }
                     R.id.action_report -> {
                         Toast.makeText(this, "Abriendo reporte ⚠️", Toast.LENGTH_SHORT).show()
+                        startActivity(Intent(this, ReportActivity::class.java))
                         true
                     }
                     R.id.action_login -> {
                         Toast.makeText(this, "Iniciando sesión 🚪", Toast.LENGTH_SHORT).show()
+                        // Aquí más adelante -> startActivity(Intent(this, LoginActivity::class.java))
                         true
                     }
                     else -> false
                 }
             }
-
             popupMenu.show()
         }
 
