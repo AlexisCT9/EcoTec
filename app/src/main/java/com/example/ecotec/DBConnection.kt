@@ -1,41 +1,57 @@
 package com.example.ecotec
 
+import android.net.Uri
 import android.util.Log
 import okhttp3.*
-import java.io.IOException
 import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.RequestBody.Companion.toRequestBody
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import java.io.File
+import java.io.IOException
 
 object DBConnection {
 
     private const val BASE_URL = "http://192.168.1.81/ecotec_api/"
     private val client = OkHttpClient()
 
-    fun enviarJSON(ruta: String, jsonData: String, callback: (Boolean, String) -> Unit) {
-        val mediaType = "application/json; charset=utf-8".toMediaType()
-        val body = jsonData.toRequestBody(mediaType)
+    fun enviarReporteConFoto(
+        ruta: String,
+        parametros: Map<String, String>,
+        fotoFile: File?,
+        callback: (Boolean, String) -> Unit
+    ) {
+        val builder = MultipartBody.Builder().setType(MultipartBody.FORM)
+
+        // Agregar parámetros normales
+        for ((clave, valor) in parametros) {
+            builder.addFormDataPart(clave, valor)
+        }
+
+        // Agregar foto
+        if (fotoFile != null && fotoFile.exists()) {
+            builder.addFormDataPart(
+                "foto",
+                fotoFile.name,
+                fotoFile.asRequestBody("image/jpeg".toMediaType())
+            )
+        }
+
+        val requestBody = builder.build()
 
         val request = Request.Builder()
             .url(BASE_URL + ruta)
-            .post(body)
+            .post(requestBody)
             .build()
 
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
-                Log.e("DBConnection", "❌ Error: ${e.message}")
-                callback(false, "No se pudo conectar con el servidor.")
+                callback(false, "Error de conexión: ${e.message}")
             }
 
             override fun onResponse(call: Call, response: Response) {
-                val respuesta = response.body?.string() ?: ""
-
-                Log.e("DBConnection", "Respuesta PHP: $respuesta")
-
-                if (response.isSuccessful) {
-                    callback(true, respuesta)
-                } else {
-                    callback(false, respuesta)
-                }
+                val resp = response.body?.string() ?: ""
+                if (response.isSuccessful) callback(true, resp)
+                else callback(false, resp)
             }
         })
     }

@@ -60,7 +60,9 @@ public class MainActivity extends AppCompatActivity {
 
                 } else if (id == R.id.action_login) {
                     Toast.makeText(this, "Iniciando sesión 🚪", Toast.LENGTH_SHORT).show();
-                    // Aquí más adelante puedes redirigir al LoginActivity
+                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.fade_out);
                     return true;
                 }
 
