@@ -36,7 +36,8 @@ android {
 }
 
 dependencies {
-
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation(files("libs/mysql-connector-j-9.5.0.jar"))
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation("androidx.cardview:cardview:1.0.0")
@@ -47,4 +48,5 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+
 }

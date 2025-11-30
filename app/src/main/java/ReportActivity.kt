@@ -19,7 +19,7 @@ class ReportActivity : AppCompatActivity() {
         val btnEnviar = findViewById<Button>(R.id.btnEnviar)
         val layoutFoto = findViewById<LinearLayout>(R.id.layoutFoto)
 
-        // --- Configurar menú superior ---
+        // ---- MENÚ SUPERIOR ----
         menuIcon.setOnClickListener { view ->
             val popupMenu = PopupMenu(this, view)
             popupMenu.menuInflater.inflate(R.menu.main_menu, popupMenu.menu)
@@ -52,7 +52,7 @@ class ReportActivity : AppCompatActivity() {
             popupMenu.show()
         }
 
-        // --- Datos de ejemplo para los spinners ---
+        // ---- DATOS SPINNER ----
         val tiposProblema = arrayOf(
             "Seleccionar tipo",
             "Tapa atascada o rota",
@@ -74,27 +74,62 @@ class ReportActivity : AppCompatActivity() {
             "Centro de Cómputo"
         )
 
-        spinnerTipo.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, tiposProblema)
-        spinnerContenedor.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, contenedores)
+        spinnerTipo.adapter =
+            ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, tiposProblema)
 
-        // --- Click para seleccionar foto (sin funcionalidad aún) ---
+        spinnerContenedor.adapter =
+            ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, contenedores)
+
+
+        // ---- FOTO (AÚN NO IMPLEMENTADA) ----
         layoutFoto.setOnClickListener {
             Snackbar.make(it, "Función de subir imagen próximamente 📷", Snackbar.LENGTH_SHORT).show()
         }
 
-        // --- Botón Enviar ---
+
+        // ---- ENVIAR REPORTE ----
         btnEnviar.setOnClickListener {
+
             val tipo = spinnerTipo.selectedItem.toString()
             val contenedor = spinnerContenedor.selectedItem.toString()
             val descripcion = edtDescripcion.text.toString()
 
-            if (tipo == "Seleccionar tipo" || contenedor == "Seleccionar contenedor" || descripcion.isEmpty()) {
-                Toast.makeText(this, "Por favor completa todos los campos obligatorios.", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(this, "Reporte enviado correctamente ✅", Toast.LENGTH_LONG).show()
-                edtDescripcion.text.clear()
-                spinnerTipo.setSelection(0)
-                spinnerContenedor.setSelection(0)
+            if (tipo == "Seleccionar tipo" ||
+                contenedor == "Seleccionar contenedor" ||
+                descripcion.isEmpty()
+            ) {
+                Toast.makeText(
+                    this,
+                    "Por favor completa todos los campos obligatorios.",
+                    Toast.LENGTH_SHORT
+                ).show()
+                return@setOnClickListener
+            }
+
+            val userID = "user001"
+            val boteID = "bote001"
+
+            val jsonData = """
+                {
+                    "bote_id": "$boteID",
+                    "user_id": "$userID",
+                    "tipo_problema": "$tipo",
+                    "mensaje": "$descripcion"
+                }
+            """.trimIndent()
+
+            DBConnection.enviarJSON("notificaciones/crear.php", jsonData) { exito, mensaje ->
+                runOnUiThread {
+                    if (exito) {
+                        Toast.makeText(this, "Reporte enviado correctamente 🎉", Toast.LENGTH_LONG)
+                            .show()
+                        edtDescripcion.text.clear()
+                        spinnerTipo.setSelection(0)
+                        spinnerContenedor.setSelection(0)
+                    } else {
+                        Toast.makeText(this, "❌ Error: $mensaje", Toast.LENGTH_LONG).show()
+                    }
+                }
             }
         }
     }
