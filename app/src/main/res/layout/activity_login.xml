@@ -75,7 +75,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Administrador"
-                    android:textColor="@android:color/white"
+                    android:textColor="@android:color/black"
                     android:textStyle="bold"
                     android:layout_marginStart="6dp"/>
             </LinearLayout>
@@ -100,7 +100,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Limpieza"
-                    android:textColor="@android:color/white"
+                    android:textColor="@android:color/black"
                     android:textStyle="bold"
                     android:layout_marginStart="6dp"/>
             </LinearLayout>
@@ -147,17 +147,33 @@
                 android:drawablePadding="12dp"/>
 
             <!-- PASSWORD -->
-            <EditText
-                android:id="@+id/edtPassword"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:background="@drawable/input_field"
-                android:hint="Contraseña"
-                android:paddingStart="6dp"
-                android:drawableLeft="@drawable/ic_password"
-                android:drawablePadding="12dp"
-                android:inputType="textPassword"
-                android:layout_marginTop="16dp"/>
+                android:layout_marginTop="16dp">
+
+                <EditText
+                    android:id="@+id/edtPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/input_field"
+                    android:hint="Contraseña"
+                    android:paddingStart="45dp"
+                    android:paddingEnd="50dp"
+                    android:drawableLeft="@drawable/ic_password"
+                    android:drawablePadding="12dp"
+                    android:inputType="textPassword" />
+
+                <ImageView
+                    android:id="@+id/btnTogglePass"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="14dp"
+                    android:src="@drawable/ic_eye_off"
+                    android:padding="2dp"/>
+            </RelativeLayout>
 
             <!-- ALERTA -->
             <TextView

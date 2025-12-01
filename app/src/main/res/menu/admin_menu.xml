@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_dashboard"
+        android:title="Dashboard"
+        android:icon="@drawable/ic_dashboard" />
+
+    <item
+        android:id="@+id/nav_users"
+        android:title="Usuarios"
+        android:icon="@drawable/ic_users" />
+
+    <item
+        android:id="@+id/nav_basureros"
+        android:title="Basureros"
+        android:icon="@drawable/ic_trash" />
+
+    <item
+        android:id="@+id/nav_notificaciones"
+        android:title="Notificaciones"
+        android:icon="@drawable/ic_bell" />
+
+    <item
+        android:id="@+id/nav_config"
+        android:title="Configuración"
+        android:icon="@drawable/ic_settings" />
+
+    <item
+        android:id="@+id/nav_logout"
+        android:title="Cerrar sesión"
+        android:icon="@drawable/ic_logout" />
+</menu>

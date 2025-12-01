@@ -79,6 +79,7 @@ class ReportActivity : AppCompatActivity() {
                     R.id.action_map -> { startActivity(Intent(this, MapActivity::class.java)); true }
                     R.id.action_recommend -> { startActivity(Intent(this, RecommendActivity::class.java)); true }
                     R.id.action_guide -> { startActivity(Intent(this, GuideActivity::class.java)); true }
+                    R.id.action_login -> { startActivity(Intent(this, LoginActivity::class.java));true }
                     R.id.action_report -> {
                         Toast.makeText(this, "Ya estás en Reportar ⚠️", Toast.LENGTH_SHORT).show()
                         true

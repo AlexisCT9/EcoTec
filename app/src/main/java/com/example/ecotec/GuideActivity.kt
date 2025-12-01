@@ -51,10 +51,9 @@ class GuideActivity : AppCompatActivity() {
                         true
                     }
                     R.id.action_login -> {
-                        Toast.makeText(this, "Iniciando sesión 🚪", Toast.LENGTH_SHORT).show()
-                        // Aquí más adelante -> startActivity(Intent(this, LoginActivity::class.java))
+                        startActivity(Intent(this, LoginActivity::class.java))
                         true
-                    }
+                                        }
                     else -> false
                 }
             }

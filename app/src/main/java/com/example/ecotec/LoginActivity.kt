@@ -1,5 +1,6 @@
 package com.example.ecotec
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.*
@@ -32,6 +33,28 @@ class LoginActivity : AppCompatActivity() {
         btnAdmin = findViewById(R.id.btnAdmin)
         btnClean = findViewById(R.id.btnClean)
         btnLogin = findViewById(R.id.btnLogin)
+
+        // ===============================================================
+        // ⭐ OJITO Mostrar/Ocultar contraseña
+        // ===============================================================
+        val btnTogglePass = findViewById<ImageView>(R.id.btnTogglePass)
+        var passVisible = false
+
+        btnTogglePass.setOnClickListener {
+            passVisible = !passVisible
+
+            if (passVisible) {
+                edtPassword.inputType = android.text.InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                btnTogglePass.setImageResource(R.drawable.ic_eye)
+            } else {
+                edtPassword.inputType = android.text.InputType.TYPE_CLASS_TEXT or
+                        android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD
+                btnTogglePass.setImageResource(R.drawable.ic_eye_off)
+            }
+
+            edtPassword.setSelection(edtPassword.text.length) // Mantiene el cursor al final
+        }
+
 
         // EVENTOS
         btnAdmin.setOnClickListener { seleccionarRol("Administrador") }
@@ -90,8 +113,20 @@ class LoginActivity : AppCompatActivity() {
 
                 runOnUiThread {
                     when {
-                        resp.contains("success") ->
+                        resp.contains("success") -> {
                             mostrarEstado("¡Inicio de sesión exitoso!", true)
+
+                            // ===============================================================
+                            // ⭐ REDIRECCIÓN
+                            // ===============================================================
+                            android.os.Handler(android.os.Looper.getMainLooper()).postDelayed({
+                                if (rolSeleccionado == "Administrador") {
+                                    startActivity(Intent(this@LoginActivity, AdminDashboardActivity::class.java))
+                                } else {
+                                    startActivity(Intent(this@LoginActivity, CleanDashboardActivity::class.java))
+                                }
+                            }, 1000)
+                        }
 
                         resp.contains("error_credentials") ->
                             mostrarEstado("Correo o contraseña incorrectos", false)

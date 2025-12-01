@@ -10,5 +10,8 @@
     <string name="report">Reportar</string>
     <string name="switch_admin">Cambiar a Admin</string>
     <string name="logo_ecotec">Logo EcoTec</string>
-
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="nav_open">Abrir menú</string>
+    <string name="nav_close">Cerrar menú</string>
 </resources>

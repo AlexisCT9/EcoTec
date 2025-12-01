@@ -1,23 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-
     <!-- ⭐ Permisos modernos (Android 10–14) -->
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
-
-    <!-- Compatibilidad para Android 9 o menor -->
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" /> <!-- Compatibilidad para Android 9 o menor -->
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="28" />
-
-    <!-- Internet para enviar reportes -->
-    <uses-permission android:name="android.permission.INTERNET" />
-
-    <!-- La cámara NO es obligatoria -->
+        android:maxSdkVersion="28" /> <!-- Internet para enviar reportes -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- La cámara NO es obligatoria -->
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
@@ -28,62 +21,55 @@
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@drawable/eco_logo"
         android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@drawable/eco_logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.EcoTec"
-        android:usesCleartextTraffic="true"
-        android:networkSecurityConfig="@xml/network_security_config">
-
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".CleanDashboardActivity"
+            android:exported="false" />
         <!-- ⭐ CameraActivity (nueva) -->
         <activity
             android:name=".CameraActivity"
             android:exported="false"
-            android:screenOrientation="portrait" />
-
-        <!-- ⭐ ACTIVIDADES YA EXISTENTES -->
-
+            android:screenOrientation="portrait" /> <!-- ⭐ ACTIVIDADES YA EXISTENTES -->
         <activity
             android:name=".bottomsheet_building"
             android:exported="false" />
-
         <activity
             android:name=".section_electronic_waste"
             android:exported="false" />
-
         <activity
             android:name=".section_recycling_tips"
             android:exported="false" />
-
         <activity
             android:name=".ReportActivity"
             android:exported="false" />
-
         <activity
             android:name=".GuideActivity"
             android:exported="false" />
-
         <activity
             android:name=".LoginActivity"
-            android:exported="false"/>
-
+            android:exported="false" />
         <activity
             android:name=".RecommendActivity"
             android:exported="false" />
-
         <activity
             android:name=".MapActivity"
             android:exported="false" />
-
+        <activity
+            android:name=".AdminDashboardActivity"
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
-
     </application>
 
 </manifest>
