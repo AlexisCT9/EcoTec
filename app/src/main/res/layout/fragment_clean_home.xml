@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:background="#F3F5FF"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- TITULO -->
+    <TextView
+        android:id="@+id/txtAreaAsignada"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Área asignada:"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="#24243E"
+        android:layout_marginBottom="12dp" />
+
+    <!-- TARJETA DE RESUMEN -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:background="@drawable/bg_card_ecotec"
+        android:elevation="6dp">
+
+        <TextView
+            android:id="@+id/txtResumen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Resumen del área"
+            android:textSize="18sp"
+            android:textColor="#6E6E7F"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:id="@+id/txtBasureros"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Basureros asignados: 0"
+            android:textSize="16sp"
+            android:textColor="#444"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>

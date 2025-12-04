@@ -5,8 +5,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
 
-    private const val BASE_URL = "http://192.168.1.79/ecotec_api/"
-    // ⬆️ Cambia por tu IP local real
+    // ⭐ BASE URL GLOBAL USANDO NGROK (HTTPS)
+    private const val BASE_URL = "https://countersalient-perla-illusorily.ngrok-free.dev/ecotec_api/"
 
     val instance: Retrofit by lazy {
         Retrofit.Builder()

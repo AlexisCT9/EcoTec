@@ -12,6 +12,14 @@
     <color name="gray_metal">#6b7280</color>
     <color name="yellow_plastic">#eab308</color>
     <color name="red_organic">#dc2626</color>
+    <color name="background_light">#F5F7FA</color>
+    <color name="card_background">#FFFFFF</color>
+    <color name="text_primary">#2C3E50</color>
+    <color name="text_secondary">#7F8C8D</color>
+    <color name="alert_red">#FF6B6B</color>
+    <color name="eco_primary">#1CB5E0</color>     <!-- azul turquesa -->
+    <color name="eco_primary_dark">#1594B8</color>
+    <color name="eco_primary_light">#6ECEF2</color>
 
 
 

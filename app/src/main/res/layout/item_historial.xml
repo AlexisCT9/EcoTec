@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@drawable/bg_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <!-- PRIMERA FILA: BOTE + FECHA -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/histBote"
+            android:text="Bote A1"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="#162034"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/histFecha"
+            android:text="2025-12-01 14:22"
+            android:textSize="14sp"
+            android:textColor="#6ECEF2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <!-- UBICACIÓN -->
+    <TextView
+        android:id="@+id/histUbicacion"
+        android:text="Laboratorio de Redes"
+        android:textSize="15sp"
+        android:textColor="#162034"
+        android:layout_marginTop="6dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <!-- NIVEL PREVIO -->
+    <TextView
+        android:id="@+id/histNivel"
+        android:text="Nivel previo: 80%"
+        android:textSize="15sp"
+        android:textColor="#162034"
+        android:layout_marginTop="4dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

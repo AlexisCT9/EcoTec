@@ -157,12 +157,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/input_field"
-                    android:hint="Contraseña"
-                    android:paddingStart="45dp"
-                    android:paddingEnd="50dp"
                     android:drawableLeft="@drawable/ic_password"
                     android:drawablePadding="12dp"
-                    android:inputType="textPassword" />
+                    android:hint="Contraseña"
+                    android:inputType="textPassword"
+                    android:paddingStart="6dp"
+                    android:paddingEnd="50dp"
+                    android:textColor="@color/black" />
 
                 <ImageView
                     android:id="@+id/btnTogglePass"
@@ -191,11 +192,11 @@
                 android:id="@+id/btnLogin"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:text="Iniciar Sesión"
-                android:textStyle="bold"
-                android:textColor="@android:color/white"
+                android:layout_marginTop="22dp"
                 android:background="@drawable/btn_login_gradient"
-                android:layout_marginTop="22dp"/>
+                android:text="Iniciar Sesión"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
         </LinearLayout>
 
     </LinearLayout>

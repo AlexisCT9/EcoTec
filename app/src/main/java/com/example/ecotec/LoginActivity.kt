@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import okhttp3.*
+import org.json.JSONObject
 import java.io.IOException
 
 class LoginActivity : AppCompatActivity() {
@@ -26,7 +27,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        // REFERENCIAS CORRECTAS
+        // REFERENCIAS
         edtCorreo = findViewById(R.id.edtCorreo)
         edtPassword = findViewById(R.id.edtPassword)
         txtEstado = findViewById(R.id.txtEstado)
@@ -34,34 +35,31 @@ class LoginActivity : AppCompatActivity() {
         btnClean = findViewById(R.id.btnClean)
         btnLogin = findViewById(R.id.btnLogin)
 
-        // ===============================================================
-        // ⭐ OJITO Mostrar/Ocultar contraseña
-        // ===============================================================
+        // VER CONTRASEÑA
         val btnTogglePass = findViewById<ImageView>(R.id.btnTogglePass)
         var passVisible = false
 
         btnTogglePass.setOnClickListener {
             passVisible = !passVisible
-
             if (passVisible) {
-                edtPassword.inputType = android.text.InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                edtPassword.inputType =
+                    android.text.InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
                 btnTogglePass.setImageResource(R.drawable.ic_eye)
             } else {
-                edtPassword.inputType = android.text.InputType.TYPE_CLASS_TEXT or
-                        android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD
+                edtPassword.inputType =
+                    android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD
                 btnTogglePass.setImageResource(R.drawable.ic_eye_off)
             }
-
-            edtPassword.setSelection(edtPassword.text.length) // Mantiene el cursor al final
+            edtPassword.setSelection(edtPassword.text.length)
         }
 
-
-        // EVENTOS
+        // EVENTOS DE ROLES
         btnAdmin.setOnClickListener { seleccionarRol("Administrador") }
         btnClean.setOnClickListener { seleccionarRol("Personal de Limpieza") }
+
+        // LOGIN
         btnLogin.setOnClickListener { login() }
 
-        // Rol inicial
         seleccionarRol("Administrador")
     }
 
@@ -82,7 +80,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     // ===============================================================
-    // LOGIN
+    // LOGIN SEGURO
     // ===============================================================
     private fun login() {
         val correo = edtCorreo.text.toString().trim()
@@ -95,71 +93,78 @@ class LoginActivity : AppCompatActivity() {
             return
         }
 
+        // Solo correo + password → EL SERVIDOR VERIFICA EL ROL
         val body = MultipartBody.Builder().setType(MultipartBody.FORM)
             .addFormDataPart("correo", correo)
             .addFormDataPart("password", password)
-            .addFormDataPart("rol", rolSeleccionado)
             .build()
 
         val req = Request.Builder().url(URL).post(body).build()
 
         client.newCall(req).enqueue(object : Callback {
+
             override fun onFailure(call: Call, e: IOException) {
                 runOnUiThread { mostrarEstado("Error de conexión", false) }
             }
 
             override fun onResponse(call: Call, response: Response) {
-                val resp = response.body?.string() ?: ""
+
+                val str = response.body?.string() ?: ""
+                val json = try { JSONObject(str) } catch (_: Exception) { null }
 
                 runOnUiThread {
-                    when {
-                        resp.contains("success") -> {
-                            mostrarEstado("¡Inicio de sesión exitoso!", true)
+                    if (json == null) {
+                        mostrarEstado("Respuesta inválida", false)
+                        return@runOnUiThread
+                    }
 
-                            // ===============================================================
-                            // ⭐ REDIRECCIÓN
-                            // ===============================================================
-                            android.os.Handler(android.os.Looper.getMainLooper()).postDelayed({
-                                if (rolSeleccionado == "Administrador") {
-                                    startActivity(Intent(this@LoginActivity, AdminDashboardActivity::class.java))
-                                } else {
-                                    startActivity(Intent(this@LoginActivity, CleanDashboardActivity::class.java))
-                                }
-                            }, 1000)
+                    if (!json.getBoolean("success")) {
+                        val msg = json.optString("msg", "Credenciales inválidas")
+                        mostrarEstado(msg, false)
+                        return@runOnUiThread
+                    }
+
+                    // 🎯 ROL REAL DESDE EL SERVIDOR
+                    val rolReal = json.getString("rol")
+
+                    // ❌ Si el usuario dice “soy admin” pero el servidor dice que NO → error
+                    if (rolReal != rolSeleccionado) {
+                        mostrarEstado("Este usuario no pertenece al rol seleccionado", false)
+                        return@runOnUiThread
+                    }
+
+                    // ✔ Todo correcto
+                    mostrarEstado("¡Inicio de sesión exitoso!", true)
+
+                    android.os.Handler(android.os.Looper.getMainLooper()).postDelayed({
+
+                        if (rolReal == "Administrador") {
+                            startActivity(Intent(this@LoginActivity, AdminDashboardActivity::class.java))
+                        } else {
+                            val intent = Intent(this@LoginActivity, CleanDashboardActivity::class.java)
+                            intent.putExtra("area", json.optString("area_asignada", ""))
+                            startActivity(intent)
                         }
 
-                        resp.contains("error_credentials") ->
-                            mostrarEstado("Correo o contraseña incorrectos", false)
-
-                        resp.contains("error_role") ->
-                            mostrarEstado("Rol incorrecto para este usuario", false)
-
-                        resp.contains("user_suspended") ->
-                            mostrarEstado("Usuario suspendido", false)
-
-                        else ->
-                            mostrarEstado("Error inesperado", false)
-                    }
+                    }, 1000)
                 }
             }
         })
     }
 
     // ===============================================================
-    // ALERTA VISUAL (VERDE / ROJO)
+    // ALERTAS VERDE / ROJO
     // ===============================================================
     private fun mostrarEstado(msg: String, success: Boolean) {
         txtEstado.visibility = View.VISIBLE
         txtEstado.text = msg
 
         txtEstado.setBackgroundResource(
-            if (success) R.drawable.alert_success
-            else R.drawable.alert_error
+            if (success) R.drawable.alert_success else R.drawable.alert_error
         )
 
         txtEstado.setTextColor(
-            if (success) 0xFF0A7C39.toInt()
-            else 0xFFB00020.toInt()
+            if (success) 0xFF0A7C39.toInt() else 0xFFB00020.toInt()
         )
     }
 }

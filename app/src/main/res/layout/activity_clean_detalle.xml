@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="20dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ProgressBar
+            android:id="@+id/cleanDetProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/cleanDetId"
+            android:text="ID: -"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView android:text="Ubicación:" />
+
+        <TextView
+            android:id="@+id/cleanDetUbicacion"
+            android:text="..."
+            android:textSize="16sp"
+            android:layout_marginBottom="12dp"/>
+
+        <TextView android:text="Tipo:" />
+
+        <TextView
+            android:id="@+id/cleanDetTipo"
+            android:text="..."
+            android:textSize="16sp"
+            android:layout_marginBottom="12dp"/>
+
+        <TextView android:text="Nivel de llenado:" />
+
+        <TextView
+            android:id="@+id/cleanDetNivel"
+            android:text="0%"
+            android:textSize="16sp"
+            android:layout_marginBottom="12dp"/>
+
+        <TextView android:text="Estado actual:" />
+
+        <TextView
+            android:id="@+id/cleanDetEstado"
+            android:text="..."
+            android:textSize="16sp"
+            android:layout_marginBottom="20dp"/>
+
+        <Button
+            android:id="@+id/btnMarcarAtendido"
+            android:text="Marcar como atendido"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+</ScrollView>

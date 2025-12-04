@@ -1,16 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical"
-    android:background="#F4F4F4">
+    android:background="@color/background_light">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <!-- ENCABEZADO -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:padding="24dp"
+        android:background="@drawable/bg_login_gradient"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txtTitulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dashboard_limpieza"
+            android:textColor="@android:color/white"
+            android:textSize="26sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- CONTENEDOR -->
+    <FrameLayout
+        android:id="@+id/cleanFragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <!-- BOTTOM NAV -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/cleanBottomNav"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Panel de Limpieza"
-        android:textSize="24sp"
-        android:textStyle="bold"/>
+        android:background="@color/card_background"
+        app:itemIconTint="@color/eco_primary"
+        app:itemTextColor="@color/eco_primary"
+        app:menu="@menu/menu_clean_nav" />
+
+    <!-- BOTÓN ALERTAS -->
+    <LinearLayout
+        android:id="@+id/btnAlertas"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:gravity="center_vertical"
+        android:background="@drawable/bg_card_white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:src="@drawable/ic_alert"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            app:tint="@color/alert_red"
+            android:contentDescription="@string/alertas" />
+
+        <TextView
+            android:text="@string/alertas"
+            android:textColor="@color/text_primary"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginStart="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <!-- empuja flecha a la derecha -->
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:src="@drawable/ic_navigation"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            app:tint="@color/text_secondary"
+            android:contentDescription="@string/alertas" />
+    </LinearLayout>
 
 </LinearLayout>

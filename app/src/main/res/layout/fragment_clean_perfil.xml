@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F7FA">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="24dp"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <!-- AVATAR -->
+        <ImageView
+            android:id="@+id/imgPerfil"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:padding="22dp"
+            android:src="@drawable/ic_user"
+            android:background="@drawable/bg_perfil_circle"
+            android:contentDescription="@string/perfil_avatar"
+            android:layout_marginTop="20dp" />
+
+        <!-- NOMBRE -->
+        <TextView
+            android:id="@+id/txtNombrePerfil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/perfil_nombre"
+            android:textStyle="bold"
+            android:textSize="22sp"
+            android:textColor="#162034"
+            android:layout_marginTop="16dp" />
+
+        <!-- ÁREA -->
+        <TextView
+            android:id="@+id/txtAreaPerfil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/perfil_area"
+            android:textColor="#6ECEF2"
+            android:textSize="14sp"
+            android:layout_marginTop="4dp" />
+
+        <!-- TARJETA DE INFO -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="18dp"
+            android:background="@drawable/bg_card_white"
+            android:elevation="4dp"
+            android:clipToOutline="true"
+            android:layout_marginTop="32dp">
+
+            <TextView
+                android:text="@string/perfil_info_titulo"
+                android:textColor="#162034"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#E0E0E0"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp" />
+
+            <!-- EMAIL -->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:src="@drawable/ic_email"
+                    app:tint="#162034" />
+
+                <TextView
+                    android:id="@+id/txtCorreoPerfil"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="email@ejemplo.com"
+                    android:textColor="#2C3E50"
+                    android:layout_marginStart="12dp"/>
+            </LinearLayout>
+
+            <!-- TELEFONO -->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp">
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:src="@drawable/ic_phone"
+                    app:tint="#162034" />
+
+                <TextView
+                    android:id="@+id/txtTelefonoPerfil"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="000-000-0000"
+                    android:textColor="#2C3E50"
+                    android:layout_marginStart="12dp"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- BOTÓN CERRAR SESIÓN -->
+        <Button
+            android:id="@+id/btnLogout"
+            android:text="@string/perfil_logout"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/gradient_button"
+            android:textColor="@android:color/white" />
+
+    </LinearLayout>
+</ScrollView>

@@ -40,6 +40,9 @@
         <activity
             android:name=".section_electronic_waste"
             android:exported="false" />
+        <activity android:name=".DetalleBasureroActivity" />
+
+
         <activity
             android:name=".section_recycling_tips"
             android:exported="false" />

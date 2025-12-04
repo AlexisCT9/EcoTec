@@ -1,56 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:padding="20dp"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/bg_card_white">
+    android:layout_height="wrap_content">
 
-    <TextView
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Editar Usuario"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:paddingBottom="10dp"/>
+        android:background="@drawable/bg_card_white">
 
-    <EditText
-        android:id="@+id/edtNombreEdit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Nombre"
-        android:padding="12dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:text="Editar Usuario"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
-    <EditText
-        android:id="@+id/edtCorreoEdit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Correo"
-        android:padding="12dp"
-        android:layout_marginTop="10dp"/>
+        <!-- NOMBRE -->
+        <EditText
+            android:id="@+id/edtNombreEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nombre"
+            android:padding="12dp"
+            android:textColor="@color/black" />
 
-    <EditText
-        android:id="@+id/edtTelefonoEdit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Teléfono"
-        android:padding="12dp"
-        android:inputType="phone"
-        android:layout_marginTop="10dp"/>
+        <!-- CORREO -->
+        <EditText
+            android:id="@+id/edtCorreoEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="Correo"
+            android:inputType="textEmailAddress"
+            android:padding="12dp"
+            android:textColor="@color/black" />
 
-    <EditText
-        android:id="@+id/edtRolEdit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Rol"
-        android:padding="12dp"
-        android:layout_marginTop="10dp"/>
+        <!-- TELÉFONO -->
+        <EditText
+            android:id="@+id/edtTelefonoEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="Teléfono"
+            android:inputType="phone"
+            android:padding="12dp"
+            android:textColor="@color/black" />
 
-    <Button
-        android:id="@+id/btnGuardarEdit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Guardar cambios"
-        android:layout_marginTop="16dp"/>
+        <!-- SPINNER ROL -->
+        <Spinner
+            android:id="@+id/spinnerRolEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"/>
 
-</LinearLayout>
+        <!-- SPINNER ÁREA -->
+        <Spinner
+            android:id="@+id/spinnerAreaEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"/>
+
+        <!-- CONTRASEÑA + OJITO -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginTop="10dp">
+
+            <EditText
+                android:id="@+id/edtPassEdit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Nueva Contraseña (opcional)"
+                android:inputType="textPassword"
+                android:padding="12dp"
+                android:textColor="@color/black" />
+
+            <ImageView
+                android:id="@+id/btnVerPassEdit"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:padding="8dp"
+                android:src="@drawable/ic_eye_off"/>
+        </LinearLayout>
+
+        <!-- BOTÓN GUARDAR -->
+        <Button
+            android:id="@+id/btnGuardarEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Guardar Cambios"
+            android:textColor="@color/ecoBlue"
+            android:textColorLink="@color/material_dynamic_tertiary80" />
+
+    </LinearLayout>
+</ScrollView>

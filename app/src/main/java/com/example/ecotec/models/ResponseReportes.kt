@@ -1,8 +1,8 @@
 package com.example.ecotec.models
 
 data class ResponseReportes(
-    val status: Boolean,
+    val success: Boolean,
     val pendientes: Int,
-    val atendidos: Int,
-    val total: Int
+    val atendidos: Int
 )
+
