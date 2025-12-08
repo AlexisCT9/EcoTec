@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardReco"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:foreground="?attr/selectableItemBackground"
+    app:cardCornerRadius="22dp"
+    app:cardElevation="10dp"
+    app:cardUseCompatPadding="true"
+    app:strokeWidth="2dp"
+    app:strokeColor="@android:color/transparent"
+    app:cardBackgroundColor="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="18dp">
+
+        <!-- ICONO DEL TIPO -->
+        <ImageView
+            android:id="@+id/iconTipo"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:tint="@color/eco_green"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/ic_trash"
+            android:layout_gravity="center" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtUbicacion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Edificio K – PB"
+                android:textColor="#111827"
+                android:textStyle="bold"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/txtTipoResiduo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Plástico"
+                android:textColor="@color/eco_green"
+                android:textSize="15sp"
+                android:layout_marginTop="2dp" />
+
+            <TextView
+                android:id="@+id/txtNivel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nivel: 60%"
+                android:textColor="#9CA3AF"
+                android:textSize="14sp"
+                android:layout_marginTop="4dp" />
+
+            <TextView
+                android:id="@+id/txtDistancia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Distancia: Muy cerca"
+                android:textColor="#9CA3AF"
+                android:textSize="14sp"
+                android:layout_marginTop="4dp" />
+        </LinearLayout>
+
+        <!-- ICONO DE DIRECCIÓN -->
+        <ImageView
+            android:id="@+id/iconFlecha"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            app:tint="@color/eco_green"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/ic_navigation"
+            android:layout_gravity="center" />
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

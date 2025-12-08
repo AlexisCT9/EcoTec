@@ -6,17 +6,21 @@ import retrofit2.http.*
 
 interface ApiService {
 
-    @GET("dashboard/get_total_usuarios.php")
+    // ============================
+    // DASHBOARD
+    // ============================
+    @GET("get_total_usuarios.php")
     fun getTotalUsuarios(): Call<ResponseTotal>
 
-    @GET("dashboard/get_total_basureros.php")
+    @GET("get_total_basureros.php")
     fun getTotalBasureros(): Call<ResponseTotal>
 
-    @GET("dashboard/get_estadisticas_reportes.php")
+    @GET("get_estadisticas_reportes.php")
     fun getEstadisticasReportes(): Call<ResponseReportes>
 
-    @GET("dashboard/get_basureros_estado.php")
+    @GET("get_basureros_estado.php")
     fun getBasurerosEstado(): Call<ResponseBasureros>
+
 
     // ============================
     // BASUREROS
@@ -26,7 +30,7 @@ interface ApiService {
 
     @GET("basureros/get_basurero_detalle.php")
     fun getBasureroDetalle(
-        @Query("id") id: String
+        @Query("bote_id") id: String
     ): Call<ResponseDetalleBasurero>
 
     @FormUrlEncoded
@@ -35,11 +39,13 @@ interface ApiService {
         @Field("id") id: String
     ): Call<ResponseSimple>
 
+
     // ============================
     // HISTORIAL LIMPIEZA
     // ============================
     @GET("clean/get_historial.php")
     fun getHistorialLimpieza(): Call<ResponseHistorial>
+
 
     // ============================
     // ALERTAS
@@ -51,4 +57,8 @@ interface ApiService {
     fun resolverAlerta(
         @Query("notif_id") notifId: String
     ): Call<ResponseSimple>
+    @GET("usuarios/get_usuarios.php")
+    fun getUsuarios(): Call<ResponseUsuarios>
+
+
 }

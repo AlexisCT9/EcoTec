@@ -20,6 +20,20 @@
     <color name="eco_primary">#1CB5E0</color>     <!-- azul turquesa -->
     <color name="eco_primary_dark">#1594B8</color>
     <color name="eco_primary_light">#6ECEF2</color>
+    <color name="eco_green">#059669</color>
+    <color name="eco_green_light">#2ECC71</color>
+    <color name="eco_green_dark">#0B7C55</color>
+
+    <color name="eco_blue">#3B82F6</color>
+    <color name="eco_blue_dark">#1D4ED8</color>
+
+    <color name="eco_secondary_green">#16A34A</color>
+
+    <color name="eco_orange">#F59E0B</color>
+    <color name="eco_orange_dark">#B45309</color>
+
+    <color name="eco_gray">#6B7280</color>
+    <color name="eco_gray_dark">#4B5563</color>
 
 
 

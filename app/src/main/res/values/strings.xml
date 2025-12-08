@@ -42,4 +42,6 @@
 
     <!-- Sección -->
     <string name="estado_de_basureros">Estado de Basureros</string>
+    <string name="nivel_porcentaje">Nivel: %1$d%%</string>
+
 </resources>

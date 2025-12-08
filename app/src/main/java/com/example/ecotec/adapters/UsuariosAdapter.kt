@@ -137,12 +137,13 @@ class UsuariosAdapter(
         btnGuardar.setOnClickListener {
 
             val actualizado = Usuario(
-                id = usuario.id,
+                user_id = usuario.user_id,
                 nombre = edtNombre.text.toString(),
                 correo = edtCorreo.text.toString(),
                 telefono = edtTelefono.text.toString(),
                 rol = spinnerRol.selectedItem.toString(),
-                area = spinnerArea.selectedItem.toString()
+                area = spinnerArea.selectedItem.toString(),
+                        estado = usuario.estado
             )
 
             onEditar(actualizado)

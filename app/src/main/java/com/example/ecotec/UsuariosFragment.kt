@@ -53,14 +53,18 @@ class UsuariosFragment : Fragment() {
                         onEliminar = { usuario -> eliminarUsuario(usuario) }
                     )
                 } else {
-                    Toast.makeText(requireContext(), "Error al conectar con la API", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        requireContext(),
+                        "Error al conectar con la API",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         }
     }
 
     // -----------------------------------------------------------
-    // AGREGAR USUARIO (CORREGIDO)
+    // AGREGAR USUARIO
     // -----------------------------------------------------------
     private fun mostrarDialogAgregar() {
 
@@ -82,7 +86,11 @@ class UsuariosFragment : Fragment() {
 
         // LISTA DE ROLES
         val roles = listOf("Administrador", "Personal de Limpieza", "Usuario General")
-        spinnerRol.adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, roles)
+        spinnerRol.adapter = ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_spinner_dropdown_item,
+            roles
+        )
 
         // LISTA DE ÁREAS
         val areas = listOf(
@@ -95,18 +103,24 @@ class UsuariosFragment : Fragment() {
             "Edificio G (Planta Baja)",
             "Edificio CC"
         )
-        spinnerArea.adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, areas)
+        spinnerArea.adapter = ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_spinner_dropdown_item,
+            areas
+        )
 
-        // OJITO PARA VER CONTRASEÑA
+        // Mostrar / ocultar contraseña
         var visible = false
         btnVerPass.setOnClickListener {
             visible = !visible
 
             if (visible) {
-                edtPass.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                edtPass.inputType =
+                    InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
                 btnVerPass.setImageResource(R.drawable.ic_eye)
             } else {
-                edtPass.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+                edtPass.inputType =
+                    InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
                 btnVerPass.setImageResource(R.drawable.ic_eye_off)
             }
 
@@ -124,7 +138,8 @@ class UsuariosFragment : Fragment() {
             val pass = edtPass.text.toString()
 
             if (nombre.isEmpty() || correo.isEmpty() || pass.isEmpty()) {
-                Toast.makeText(requireContext(), "Completa todos los campos", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Completa todos los campos", Toast.LENGTH_SHORT)
+                    .show()
                 return@setOnClickListener
             }
 
@@ -134,11 +149,16 @@ class UsuariosFragment : Fragment() {
 
                 activity?.runOnUiThread {
                     if (ok) {
-                        Toast.makeText(requireContext(), "Usuario agregado", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), "Usuario agregado", Toast.LENGTH_SHORT)
+                            .show()
                         dialog.dismiss()
                         cargarUsuarios()
                     } else {
-                        Toast.makeText(requireContext(), "Error al agregar usuario", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            requireContext(),
+                            "Error al agregar usuario",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
             }
@@ -155,21 +175,26 @@ class UsuariosFragment : Fragment() {
         thread {
             val api = UsuariosApi()
             val ok = api.editarUsuario(
-                usuario.id,
+                usuario.user_id,
                 usuario.nombre,
                 usuario.correo,
                 usuario.telefono,
                 usuario.area,
-                usuario.rol
-
+                usuario.rol,
+                usuario.estado   // ← CORREGIDO, AHORA SÍ SE ENVÍA
             )
 
             activity?.runOnUiThread {
                 if (ok) {
-                    Toast.makeText(requireContext(), "Usuario actualizado", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Usuario actualizado", Toast.LENGTH_SHORT)
+                        .show()
                     cargarUsuarios()
                 } else {
-                    Toast.makeText(requireContext(), "Error al actualizar usuario", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        requireContext(),
+                        "Error al actualizar usuario",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         }
@@ -182,14 +207,18 @@ class UsuariosFragment : Fragment() {
 
         thread {
             val api = UsuariosApi()
-            val ok = api.eliminarUsuario(usuario.id)
+            val ok = api.eliminarUsuario(usuario.user_id)
 
             activity?.runOnUiThread {
                 if (ok) {
                     Toast.makeText(requireContext(), "Usuario eliminado", Toast.LENGTH_SHORT).show()
                     cargarUsuarios()
                 } else {
-                    Toast.makeText(requireContext(), "Error al eliminar usuario", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        requireContext(),
+                        "Error al eliminar usuario",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         }

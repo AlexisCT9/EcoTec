@@ -2,7 +2,7 @@ package com.example.ecotec.api
 
 import com.example.ecotec.models.Usuario
 import okhttp3.*
-import org.json.JSONArray
+import org.json.JSONObject
 
 class UsuariosApi {
 
@@ -10,21 +10,22 @@ class UsuariosApi {
     private val BASE = "http://192.168.1.81/ecotec_api/usuarios/"
 
     // ============================================================
-    // OBTENER USUARIOS
+    // 🚀 OBTENER USUARIOS
     // ============================================================
     fun obtenerUsuarios(): List<Usuario>? {
-        val req = Request.Builder().url(BASE + "obtener_usuarios.php").build()
 
-        client.newCall(req).execute().use {
+        val req = Request.Builder()
+            .url(BASE + "obtener_usuarios.php")
+            .build()
 
-            val body = it.body?.string() ?: return null
+        client.newCall(req).execute().use { resp ->
 
-            // Convertir respuesta a objeto JSON
-            val root = org.json.JSONObject(body)
+            val body = resp.body?.string() ?: return null
+            val json = JSONObject(body)
 
-            // Obtener el array "usuarios"
-            val arr = root.getJSONArray("usuarios")
+            if (!json.getBoolean("success")) return null
 
+            val arr = json.getJSONArray("usuarios")
             val lista = ArrayList<Usuario>()
 
             for (i in 0 until arr.length()) {
@@ -32,12 +33,13 @@ class UsuariosApi {
 
                 lista.add(
                     Usuario(
-                        id = o.getString("user_id"),
+                        user_id = o.getString("user_id"),
                         nombre = o.getString("nombre"),
                         correo = o.getString("correo"),
                         telefono = o.getString("telefono"),
                         rol = o.getString("rol"),
-                        area = o.getString("area")
+                        area = o.getString("area"),
+                        estado = o.getString("estado") // ← AGREGADO
                     )
                 )
             }
@@ -46,9 +48,8 @@ class UsuariosApi {
         }
     }
 
-
     // ============================================================
-    // AGREGAR USUARIO
+    // 🚀 AGREGAR USUARIO
     // ============================================================
     fun agregarUsuario(
         nombre: String,
@@ -65,7 +66,7 @@ class UsuariosApi {
             .addFormDataPart("correo", correo)
             .addFormDataPart("telefono", telefono)
             .addFormDataPart("rol", rol)
-            .addFormDataPart("area", area)        // ← NUEVO
+            .addFormDataPart("area", area)
             .addFormDataPart("password", pass)
             .build()
 
@@ -81,9 +82,10 @@ class UsuariosApi {
     }
 
     // ============================================================
-    // ELIMINAR USUARIO
+    // 🚀 ELIMINAR USUARIO
     // ============================================================
     fun eliminarUsuario(id: String): Boolean {
+
         val body = MultipartBody.Builder()
             .setType(MultipartBody.FORM)
             .addFormDataPart("user_id", id)
@@ -101,15 +103,16 @@ class UsuariosApi {
     }
 
     // ============================================================
-    // EDITAR USUARIO
+    // 🚀 EDITAR USUARIO  (CON ESTADO)
     // ============================================================
     fun editarUsuario(
         id: String,
         nombre: String,
         correo: String,
         telefono: String,
+        area: String,
         rol: String,
-        area: String
+        estado: String
     ): Boolean {
 
         val body = MultipartBody.Builder()
@@ -118,8 +121,9 @@ class UsuariosApi {
             .addFormDataPart("nombre", nombre)
             .addFormDataPart("correo", correo)
             .addFormDataPart("telefono", telefono)
+            .addFormDataPart("area", area)
             .addFormDataPart("rol", rol)
-            .addFormDataPart("area", area)    // ← NUEVO
+            .addFormDataPart("estado", estado)   // ← AGREGADO
             .build()
 
         val req = Request.Builder()

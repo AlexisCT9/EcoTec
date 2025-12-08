@@ -3,6 +3,8 @@ package com.example.ecotec
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -48,7 +50,6 @@ class MapActivity : AppCompatActivity() {
                     }
                     R.id.action_login -> {
                         Toast.makeText(this, "Iniciando sesión 🚪", Toast.LENGTH_SHORT).show()
-                        // más adelante -> startActivity(Intent(this, LoginActivity::class.java))
                         true
                     }
                     else -> false
@@ -70,6 +71,47 @@ class MapActivity : AppCompatActivity() {
         btnK.setOnClickListener { showBuildingBottomSheet("Edificio K", obtenerContenedoresK()) }
         btnCafeteria.setOnClickListener { showBuildingBottomSheet("Cafetería", obtenerContenedoresCafeteria()) }
         btnCC.setOnClickListener { showBuildingBottomSheet("Centro de Cómputo", obtenerContenedoresCC()) }
+
+        // --- Recibir selección desde RecommendActivity ---
+        val destino = intent.getStringExtra("destino")
+        if (destino != null) {
+            highlightBuilding(destino)
+        }
+    }
+
+    // --- EFECTO DE RESALTAR EL EDIFICIO ---
+    private fun highlightBuilding(destino: String) {
+
+        val btnL = findViewById<Button>(R.id.btnL)
+        val btnG = findViewById<Button>(R.id.btnG)
+        val btnK = findViewById<Button>(R.id.btnK)
+        val btnCafeteria = findViewById<Button>(R.id.btnCafeteria)
+        val btnCC = findViewById<Button>(R.id.btnCC)
+
+        var target: Button? = null
+
+        // MATCH con seguridad
+        val d = destino.lowercase()
+
+        target = when {
+            d.contains("k") -> btnK
+            d.contains("g") -> btnG
+            d.contains("l") -> btnL
+            d.contains("caf") -> btnCafeteria
+            d.contains("cómputo") || d.contains("cc") -> btnCC
+            else -> null
+        }
+
+        if (target != null) {
+
+            val anim: Animation =
+                AnimationUtils.loadAnimation(this, R.anim.glow_pulse)
+
+            target.startAnimation(anim)
+
+            // Abre hoja inferior automáticamente
+            target.performClick()
+        }
     }
 
     private fun showBuildingBottomSheet(nombre: String, pisos: Map<String, List<Contenedor>>) {
