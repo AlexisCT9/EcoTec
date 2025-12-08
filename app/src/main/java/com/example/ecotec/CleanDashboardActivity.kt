@@ -14,12 +14,12 @@ class CleanDashboardActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_clean_dashboard)
 
-        // Recibimos el área enviada desde Login
+        // Recibimos el área desde Login (solo para mostrar)
         areaAsignada = intent.getStringExtra("area") ?: ""
 
         bottomNav = findViewById(R.id.cleanBottomNav)
 
-        // Fragment inicial: HOME
+        // Home inicial
         openFragment(CleanHomeFragment.newInstance(areaAsignada))
 
         bottomNav.setOnItemSelectedListener { item ->
@@ -29,13 +29,13 @@ class CleanDashboardActivity : AppCompatActivity() {
                     openFragment(CleanHomeFragment.newInstance(areaAsignada))
 
                 R.id.clean_nav_basureros ->
-                    openFragment(CleanBasurerosFragment.newInstance(areaAsignada))
+                    openFragment(CleanBasurerosFragment())   // ✔ SIN newInstance
 
                 R.id.clean_nav_historial ->
                     openFragment(CleanHistorialFragment())
 
                 R.id.clean_nav_perfil ->
-                    openFragment(CleanPerfilFragment())   // ← ESTE SOLO FUNCIONA SI EXISTE
+                    openFragment(CleanPerfilFragment())
             }
             true
         }

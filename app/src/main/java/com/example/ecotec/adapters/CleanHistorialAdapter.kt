@@ -28,10 +28,14 @@ class CleanHistorialAdapter(
     override fun onBindViewHolder(h: ViewHolder, pos: Int) {
         val item = lista[pos]
 
-        h.bote.text = "Bote: ${item.bote_id}"
-        h.ubicacion.text = "Ubicación: ${item.ubicacion}"
-        h.nivel.text = "Nivel previo: ${item.nivel_previo}%"
-        h.fecha.text = "Fecha: ${item.fecha}"
+        h.bote.text = "Bote: ${item.bote_id ?: "N/A"}"
+        h.ubicacion.text = "Ubicación: ${item.ubicacion ?: "Sin datos"}"
+
+        // el backend manda "nivel"
+        val nivel = item.nivel ?: 0
+        h.nivel.text = "Nivel previo: $nivel%"
+
+        h.fecha.text = "Fecha: ${item.fecha ?: "Sin fecha"}"
     }
 
     override fun getItemCount() = lista.size

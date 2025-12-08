@@ -11,7 +11,8 @@ import java.io.IOException
 
 object DBConnection {
 
-    private const val BASE_URL = "http://192.168.1.81/ecotec_api/"
+   // private const val BASE_URL = "http://192.168.1.81/ecotec_api/"
+   private const val BASE_URL = "http://10.247.163.12/ecotec_api/"
     private val client = OkHttpClient()
 
     fun enviarReporteConFoto(

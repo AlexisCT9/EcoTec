@@ -86,9 +86,9 @@
                     android:id="@+id/txtCorreoPerfil"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
                     android:text="email@ejemplo.com"
-                    android:textColor="#2C3E50"
-                    android:layout_marginStart="12dp"/>
+                    android:textColor="@color/black" />
             </LinearLayout>
 
             <!-- TELEFONO -->
@@ -108,9 +108,9 @@
                     android:id="@+id/txtTelefonoPerfil"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
                     android:text="000-000-0000"
-                    android:textColor="#2C3E50"
-                    android:layout_marginStart="12dp"/>
+                    android:textColor="@color/black" />
             </LinearLayout>
 
         </LinearLayout>

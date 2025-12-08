@@ -21,7 +21,8 @@ class LoginActivity : AppCompatActivity() {
     private var rolSeleccionado = "Administrador"
 
     private val client = OkHttpClient()
-    private val URL = "http://192.168.1.81/ecotec_api/usuarios/login.php"
+    //private val URL = "http://192.168.1.81/ecotec_api/usuarios/login.php"
+    private val URL = "http://10.247.163.12/ecotec_api/usuarios/login.php"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,7 +68,6 @@ class LoginActivity : AppCompatActivity() {
     // SELECCIÓN DE ROL
     // ===============================================================
     private fun seleccionarRol(rol: String) {
-
         rolSeleccionado = rol
 
         if (rol == "Administrador") {
@@ -93,7 +93,6 @@ class LoginActivity : AppCompatActivity() {
             return
         }
 
-        // Solo correo + password → EL SERVIDOR VERIFICA EL ROL
         val body = MultipartBody.Builder().setType(MultipartBody.FORM)
             .addFormDataPart("correo", correo)
             .addFormDataPart("password", password)
@@ -127,14 +126,28 @@ class LoginActivity : AppCompatActivity() {
                     // 🎯 ROL REAL DESDE EL SERVIDOR
                     val rolReal = json.getString("rol")
 
-                    // ❌ Si el usuario dice “soy admin” pero el servidor dice que NO → error
                     if (rolReal != rolSeleccionado) {
                         mostrarEstado("Este usuario no pertenece al rol seleccionado", false)
                         return@runOnUiThread
                     }
 
-                    // ✔ Todo correcto
+                    // ✔ Inicio correcto
                     mostrarEstado("¡Inicio de sesión exitoso!", true)
+
+                    // =============================================================
+                    // 🔥 GUARDAR DATOS DEL USUARIO PARA TODO ECOTEC
+                    // =============================================================
+                    val prefs = getSharedPreferences("ecotec_user", MODE_PRIVATE).edit()
+
+                    prefs.putString("user_id", json.optString("user_id", ""))
+                    prefs.putString("nombre", json.optString("nombre", ""))
+                    prefs.putString("correo", json.optString("correo", correo))
+                    prefs.putString("telefono", json.optString("telefono", ""))
+                    prefs.putString("rol", json.optString("rol", rolReal))
+                    prefs.putString("area", json.optString("area_asignada", ""))
+
+                    prefs.apply()
+                    // =============================================================
 
                     android.os.Handler(android.os.Looper.getMainLooper()).postDelayed({
 

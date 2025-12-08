@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,15 +19,6 @@ import retrofit2.Response
 class CleanBasurerosFragment : Fragment() {
 
     private lateinit var recycler: RecyclerView
-    private var area = ""
-
-    companion object {
-        fun newInstance(area: String): CleanBasurerosFragment {
-            val f = CleanBasurerosFragment()
-            f.area = area
-            return f
-        }
-    }
 
     private val api by lazy {
         RetrofitClient.instance.create(ApiService::class.java)
@@ -49,22 +41,60 @@ class CleanBasurerosFragment : Fragment() {
     }
 
     private fun cargar() {
+
+        val prefs = requireActivity().getSharedPreferences("ecotec_user",
+            AppCompatActivity.MODE_PRIVATE)
+
+        val area = prefs.getString("area", "") ?: ""
+
+        // MAPEADOR OFICIAL
+        val coincidencia = when(area) {
+
+            "Cafetería" -> listOf("Cafetería - PB")
+
+            "Edificio L (Planta Alta)" -> listOf("Edificio L - P1")
+            "Edificio L (Planta Baja)" -> listOf("Edificio L - PB")
+
+            "Edificio K (Planta Alta)" -> listOf("Edificio K - P1")
+            "Edificio K (Planta Baja)" -> listOf("Edificio K - PB")
+
+            "Edificio G (Planta Alta)" -> listOf("Edificio G - P1")
+            "Edificio G (Planta Baja)" -> listOf("Edificio G - PB")
+
+            "Edificio CC" -> listOf("Edificio CC", "Centro de Cómputo - PB")
+
+            "Control general", "General" -> emptyList() // ver todos
+
+            else -> emptyList()
+        }
+
         api.getBasureros().enqueue(object : Callback<ResponseBasureros> {
 
             override fun onResponse(
                 call: Call<ResponseBasureros>,
                 response: Response<ResponseBasureros>
             ) {
-                val lista = response.body()?.basureros ?: return
+                if (!response.isSuccessful) {
+                    Toast.makeText(requireContext(), "Error del servidor", Toast.LENGTH_SHORT).show()
+                    return
+                }
 
-                val filtrados = lista.filter { it.ubicacion.contains(area, ignoreCase = true) }
+                val lista = response.body()?.basureros ?: emptyList()
+
+                val filtrados = if (coincidencia.isEmpty()) {
+                    lista
+                } else {
+                    lista.filter { b ->
+                        coincidencia.any { match -> b.ubicacion.contains(match, ignoreCase = true) }
+                    }
+                }
 
                 recycler.adapter = AdapterBasureros(
                     filtrados,
                     onClick = { b ->
-                        val i = Intent(requireContext(), CleanDetalleBasureroActivity::class.java)
-                        i.putExtra("id", b.bote_id)
-                        startActivity(i)
+                        val intent = Intent(requireContext(), CleanDetalleBasureroActivity::class.java)
+                        intent.putExtra("id", b.bote_id)
+                        startActivity(intent)
                     }
                 )
             }

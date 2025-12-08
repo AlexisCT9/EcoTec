@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 
 class CleanPerfilFragment : Fragment() {
@@ -19,18 +20,25 @@ class CleanPerfilFragment : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_clean_perfil, container, false)
 
-        // Referencias a vistas
+        val prefs = requireActivity().getSharedPreferences("ecotec_user",
+            AppCompatActivity.MODE_PRIVATE)
+
+        val nombre = prefs.getString("nombre", "Usuario de Limpieza")
+        val area = prefs.getString("area", "Sin área")
+        val correo = prefs.getString("correo", "email@ejemplo.com")
+        val telefono = prefs.getString("telefono", "000-000-0000")
+
         val txtNombre = view.findViewById<TextView>(R.id.txtNombrePerfil)
         val txtArea = view.findViewById<TextView>(R.id.txtAreaPerfil)
+        val txtCorreo = view.findViewById<TextView>(R.id.txtCorreoPerfil)
+        val txtTelefono = view.findViewById<TextView>(R.id.txtTelefonoPerfil)
         val btnLogout = view.findViewById<Button>(R.id.btnLogout)
 
-        // Recuperar datos del usuario (que llegan por Dashboard)
-        val areaAsignada = activity?.intent?.getStringExtra("area") ?: "Sin área"
+        txtNombre.text = nombre
+        txtArea.text = "Área asignada: $area"
+        txtCorreo.text = correo
+        txtTelefono.text = telefono
 
-        txtNombre.text = "Usuario de Limpieza"
-        txtArea.text = "Área asignada: $areaAsignada"
-
-        // Cerrar sesión
         btnLogout.setOnClickListener {
             val intent = Intent(activity, LoginActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
