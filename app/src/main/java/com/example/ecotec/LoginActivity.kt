@@ -21,8 +21,8 @@ class LoginActivity : AppCompatActivity() {
     private var rolSeleccionado = "Administrador"
 
     private val client = OkHttpClient()
-    //private val URL = "http://192.168.1.81/ecotec_api/usuarios/login.php"
-    private val URL = "http://10.247.163.12/ecotec_api/usuarios/login.php"
+    private val URL = "http://192.168.1.81/ecotec_api/usuarios/login.php"
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

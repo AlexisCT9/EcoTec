@@ -7,8 +7,9 @@ import org.json.JSONObject
 class UsuariosApi {
 
     private val client = OkHttpClient()
-    //private val BASE = "http://192.168.1.81/ecotec_api/usuarios/"
-    private val BASE = "http://10.247.163.12/ecotec_api/usuarios/"
+    private val BASE = "http://192.168.1.81/ecotec_api/usuarios/"
+
+
 
     // ============================================================
     // 🚀 OBTENER USUARIOS

@@ -1,9 +1,11 @@
 package com.example.ecotec
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ecotec.adapters.RecommendationAdapter
@@ -15,14 +17,14 @@ class RecommendActivity : AppCompatActivity() {
     private lateinit var recycler: RecyclerView
     private lateinit var menuIcon: ImageView
 
-    // TARJETAS (paso 1)
+    // TARJETAS
     private lateinit var cardPlastico: LinearLayout
     private lateinit var cardPapel: LinearLayout
     private lateinit var cardMetal: LinearLayout
     private lateinit var cardOrganico: LinearLayout
     private lateinit var cardGeneral: LinearLayout
 
-    private var tipoSeleccionado: String? = null // <- PASO 1
+    private var tipoSeleccionado: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,7 +74,7 @@ class RecommendActivity : AppCompatActivity() {
         // MENÚ SUPERIOR
         menuIcon.setOnClickListener { showMenu() }
 
-        // LISTENERS DE TARJETAS (PASO 1)
+        // LISTENERS DE TARJETAS
         cardPlastico.setOnClickListener { seleccionarTipo("Plástico", cardPlastico) }
         cardPapel.setOnClickListener { seleccionarTipo("Papel", cardPapel) }
         cardMetal.setOnClickListener { seleccionarTipo("Metal", cardMetal) }
@@ -80,13 +82,55 @@ class RecommendActivity : AppCompatActivity() {
         cardGeneral.setOnClickListener { seleccionarTipo("General", cardGeneral) }
     }
 
+    // ===============================================================
+    // MENÚ SUPERIOR (FUNCIONAL)
+    // ===============================================================
     private fun showMenu() {
         val popupMenu = PopupMenu(this, menuIcon)
         popupMenu.menuInflater.inflate(R.menu.main_menu, popupMenu.menu)
+
+        popupMenu.setOnMenuItemClickListener { item ->
+            when (item.itemId) {
+
+                R.id.action_map -> {
+                    Toast.makeText(this, "Abriendo mapa 🗺️", Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this, MapActivity::class.java))
+                    true
+                }
+
+                R.id.action_recommend -> {
+                    Toast.makeText(this, "Ya estás en recomendaciones 💡", Toast.LENGTH_SHORT).show()
+                    true
+                }
+
+                R.id.action_guide -> {
+                    Toast.makeText(this, "Abriendo guía 📘", Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this, GuideActivity::class.java))
+                    true
+                }
+
+                R.id.action_report -> {
+                    Toast.makeText(this, "Abriendo reporte ⚠️", Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this, ReportActivity::class.java))
+                    true
+                }
+
+                R.id.action_login -> {
+                    Toast.makeText(this, "Iniciando sesión 🚪", Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this, LoginActivity::class.java))
+                    true
+                }
+
+                else -> false
+            }
+        }
+
         popupMenu.show()
     }
 
-    // ⭐ VISUAL: Tarjeta seleccionada cambia color
+    // ===============================================================
+    // SELECCIÓN VISUAL DE TARJETA
+    // ===============================================================
     private fun seleccionarTipo(tipo: String, tarjeta: LinearLayout) {
         tipoSeleccionado = tipo
 
@@ -101,16 +145,18 @@ class RecommendActivity : AppCompatActivity() {
         calcularRecomendaciones()
     }
 
-    // ⭐ LÓGICA PRINCIPAL
+    // ===============================================================
+    // LÓGICA PRINCIPAL
+    // ===============================================================
     private fun calcularRecomendaciones() {
 
         if (tipoSeleccionado == null) {
-            return // Aún no elige tipo → no recomendamos
+            return
         }
 
         val userPlace = spinnerUbicacion.selectedItem.toString()
 
-        // MATRIZ DE DISTANCIAS ENTRE EDIFICIOS
+        // MATRIZ DE DISTANCIAS
         val distancias = mapOf(
             "Centro de Cómputo" to mapOf(
                 "Centro de Cómputo" to 0,
@@ -149,8 +195,7 @@ class RecommendActivity : AppCompatActivity() {
             )
         )
 
-        // *** AQUÍ IRÁ TU API REAL: niveles por tipo ***
-        // Por ahora seguimos con tu formato pero DINÁMICO
+        // BOTES (TEMPORAL, HASTA TU API REAL)
         val botes = listOf(
             RecoItem("Edificio K – PB", "Plástico", 60, distancias[userPlace]!!["Edificio K"]!!),
             RecoItem("Cafetería – PB", "Orgánico", 76, distancias[userPlace]!!["Cafetería"]!!),
@@ -159,10 +204,9 @@ class RecommendActivity : AppCompatActivity() {
             RecoItem("Edificio L – PB", "Papel", 82, distancias[userPlace]!!["Edificio L"]!!)
         )
 
-        // FILTRAR POR TIPO SELECCIONADO ⭐
+        // FILTRAR POR TIPO SELECCIONADO
         val filtrados = botes.filter { it.tipoResiduo == tipoSeleccionado }
 
-        // SI NO HAY BOTEs EXACTOS → mostrar alternativas del mismo edificio
         val resultadoFinal = if (filtrados.isNotEmpty()) {
             filtrados.sortedBy { it.distancia }
         } else {

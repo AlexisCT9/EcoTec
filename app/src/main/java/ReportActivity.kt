@@ -13,7 +13,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
-import androidx.core.content.ContextCompat
 import com.example.ecotec.api.ApiService
 import com.example.ecotec.api.RetrofitClient
 import com.example.ecotec.models.Basurero
@@ -49,7 +48,7 @@ class ReportActivity : AppCompatActivity() {
     }
 
     // ------------------------------
-    // PERMISOS CAMERA/GALERÍA
+    // PERMISOS
     // ------------------------------
     private val permisoCamaraLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { permitido ->
@@ -85,40 +84,55 @@ class ReportActivity : AppCompatActivity() {
         menuIcon.setOnClickListener { view ->
             val popupMenu = PopupMenu(this, view)
             popupMenu.menuInflater.inflate(R.menu.main_menu, popupMenu.menu)
+
             popupMenu.setOnMenuItemClickListener {
                 when (it.itemId) {
-                    R.id.action_map -> { startActivity(Intent(this, MapActivity::class.java)); true }
-                    R.id.action_recommend -> { startActivity(Intent(this, RecommendActivity::class.java)); true }
-                    R.id.action_guide -> { startActivity(Intent(this, GuideActivity::class.java)); true }
-                    R.id.action_login -> { startActivity(Intent(this, LoginActivity::class.java)); true }
+                    R.id.action_map ->
+                    { startActivity(Intent(this, MapActivity::class.java)); true }
+
+                    R.id.action_recommend ->
+                    { startActivity(Intent(this, RecommendActivity::class.java)); true }
+
+                    R.id.action_guide ->
+                    { startActivity(Intent(this, GuideActivity::class.java)); true }
+
+                    R.id.action_login ->
+                    { startActivity(Intent(this, LoginActivity::class.java)); true }
+
                     R.id.action_report -> {
                         Toast.makeText(this, "Ya estás en Reportar ⚠️", Toast.LENGTH_SHORT).show()
                         true
                     }
+
                     else -> false
                 }
             }
+
             popupMenu.show()
         }
 
         // ------------------------------
-        // SPINNER TIPO
+        // SPINNER TIPO (CON ESTILO PERSONALIZADO)
         // ------------------------------
-        spinnerTipo.adapter = ArrayAdapter(
-            this,
-            android.R.layout.simple_spinner_dropdown_item,
-            arrayOf(
-                "Seleccionar tipo",
-                "Tapa atascada o rota",
-                "Sensor no funciona",
-                "Contenedor desbordado",
-                "Cámara no identifica residuos",
-                "Otro problema"
-            )
+        val tipos = arrayOf(
+            "Seleccionar tipo",
+            "Tapa atascada o rota",
+            "Sensor no funciona",
+            "Contenedor desbordado",
+            "Cámara no identifica residuos",
+            "Otro problema"
         )
 
+        val adapterTipos = ArrayAdapter(
+            this,
+            R.layout.spinner_item,      // texto seleccionado negro
+            tipos
+        )
+        adapterTipos.setDropDownViewResource(R.layout.spinner_dropdown_item)
+        spinnerTipo.adapter = adapterTipos
+
         // ------------------------------
-        // CARGAR CONTENEDORES DESDE LA API
+        // CARGAR CONTENEDORES
         // ------------------------------
         cargarBasureros()
 
@@ -128,7 +142,7 @@ class ReportActivity : AppCompatActivity() {
     }
 
     // ================================================================
-    // Cargar basureros reales desde el servidor
+    // Cargar basureros desde API
     // ================================================================
     private fun cargarBasureros() {
         api.getBasureros().enqueue(object : Callback<ResponseBasureros> {
@@ -138,7 +152,7 @@ class ReportActivity : AppCompatActivity() {
                 response: Response<ResponseBasureros>
             ) {
                 if (!response.isSuccessful) {
-                    Toast.makeText(this@ReportActivity, "Error servidor", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@ReportActivity, "Error del servidor", Toast.LENGTH_SHORT).show()
                     return
                 }
 
@@ -147,7 +161,6 @@ class ReportActivity : AppCompatActivity() {
                 basureros.clear()
                 basureros.addAll(lista)
 
-                // Label y ID reales
                 basurerosLabels.clear()
                 basurerosIds.clear()
 
@@ -159,12 +172,13 @@ class ReportActivity : AppCompatActivity() {
                     basurerosIds.add(b.bote_id)
                 }
 
-                spinnerContenedor.adapter =
-                    ArrayAdapter(
-                        this@ReportActivity,
-                        android.R.layout.simple_spinner_dropdown_item,
-                        basurerosLabels
-                    )
+                val adapterCont = ArrayAdapter(
+                    this@ReportActivity,
+                    R.layout.spinner_item,     // estilo seleccionado
+                    basurerosLabels
+                )
+                adapterCont.setDropDownViewResource(R.layout.spinner_dropdown_item)
+                spinnerContenedor.adapter = adapterCont
             }
 
             override fun onFailure(call: Call<ResponseBasureros>, t: Throwable) {
@@ -182,6 +196,7 @@ class ReportActivity : AppCompatActivity() {
 
     private fun abrirSelectorDeFoto() {
         val opciones = arrayOf("Tomar foto", "Elegir de galería")
+
         AlertDialog.Builder(this)
             .setTitle("Seleccionar imagen")
             .setItems(opciones) { _, i ->
@@ -189,7 +204,8 @@ class ReportActivity : AppCompatActivity() {
                     0 -> abrirCamara()
                     1 -> pedirPermisoGaleria()
                 }
-            }.show()
+            }
+            .show()
     }
 
     private fun pedirPermisoGaleria() {
@@ -200,8 +216,8 @@ class ReportActivity : AppCompatActivity() {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == Activity.RESULT_OK) {
                 val bitmap = it.data?.extras?.get("data") as? android.graphics.Bitmap
-                if (bitmap != null) {
-                    val uri = ImageUtil.saveBitmapToUri(this, bitmap)
+                bitmap?.let { b ->
+                    val uri = ImageUtil.saveBitmapToUri(this, b)
                     fotoUri = uri
                     mostrarFoto(uri)
                 }
@@ -214,7 +230,7 @@ class ReportActivity : AppCompatActivity() {
     }
 
     private val galeriaLauncher =
-        registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+        registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
             uri?.let {
                 fotoUri = it
                 mostrarFoto(it)
@@ -227,22 +243,24 @@ class ReportActivity : AppCompatActivity() {
 
     private fun mostrarFoto(uri: Uri?) {
         if (uri == null) return
+
         val input = contentResolver.openInputStream(uri)
         val bitmap = BitmapFactory.decodeStream(input)
+
         fotoPreview.visibility = View.VISIBLE
         fotoPreview.setImageBitmap(bitmap)
+
         iconCamera.visibility = View.GONE
         textFoto.visibility = View.GONE
     }
 
     // ================================================================
-    // ENVIAR REPORTE CON BOTE ID REAL
+    // ENVIAR REPORTE
     // ================================================================
     private fun enviarReporte() {
         val tipo = spinnerTipo.selectedItem.toString()
         val index = spinnerContenedor.selectedItemPosition
         val boteId = basurerosIds.getOrNull(index) ?: ""
-
         val descripcion = edtDescripcion.text.toString()
 
         if (tipo == "Seleccionar tipo" || boteId.isEmpty() || descripcion.isBlank()) {
@@ -261,21 +279,22 @@ class ReportActivity : AppCompatActivity() {
             if (path != null) {
                 val file = File(path)
                 builder.addFormDataPart(
-                    "foto", file.name,
+                    "foto",
+                    file.name,
                     RequestBody.create("image/*".toMediaTypeOrNull(), file)
                 )
             }
         }
 
         val request = Request.Builder()
-           // .url("http://192.168.1.81/ecotec_api/notificaciones/crear.php")
-            .url("http://10.247.163.12/ecotec_api/notificaciones/crear.php")
+            .url("http://192.168.1.81/ecotec_api/notificaciones/crear.php")
             .post(builder.build())
             .build()
 
         Thread {
             try {
                 client.newCall(request).execute()
+
                 runOnUiThread {
                     Toast.makeText(this, "Reporte enviado ✔", Toast.LENGTH_LONG).show()
                     finish()

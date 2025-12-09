@@ -50,8 +50,12 @@ class MapActivity : AppCompatActivity() {
                     }
                     R.id.action_login -> {
                         Toast.makeText(this, "Iniciando sesión 🚪", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this, LoginActivity::class.java)
+                        startActivity(intent)
+                        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.fade_out)
                         true
                     }
+
                     else -> false
                 }
             }
